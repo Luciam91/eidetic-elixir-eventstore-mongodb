@@ -23,8 +23,7 @@ defmodule Eidetic.EventStore.MongoDB.Mixfile do
   end
 
   def deps do
-    [ {:eidetic, {:foobar, git: "https://github.com/GT8Online/eidetic-eventstore-mongodb.git"}}
-      {:ex_doc, ">= 0.0.0", only: :dev},
+    [ {:ex_doc, ">= 0.0.0", only: :dev},
       {:uuid, "~> 1.1"}]
   end
 
