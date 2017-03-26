@@ -1,0 +1,13 @@
+version: "2.1"
+
+services:
+  app:
+    image: elixir:latest
+    entrypoint: mix
+    command: test
+    working_dir: /code
+    volumes:
+      - .:/code
+
+  mongo:
+    image: mongo:latest

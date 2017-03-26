@@ -2,7 +2,7 @@ defmodule Eidetic.EventStore.MongoDB.Mixfile do
   use Mix.Project
 
   def project do
-    [ app: :eidetic_eventstore_mongodb,
+    [app: :eidetic_eventstore_mongodb,
       version: "0.0.1",
       elixir: "~> 1.3",
       build_embedded: Mix.env == :prod,
@@ -16,19 +16,25 @@ defmodule Eidetic.EventStore.MongoDB.Mixfile do
   end
 
   def application do
-    [ extra_applications: [
+    [extra_applications: [
       :logger
+      ],
+      mod: {Eidetic.EventStore.MongoDB.Application, []}
     ]
-  ]
   end
 
   def deps do
-    [ {:ex_doc, ">= 0.0.0", only: :dev},
-      {:uuid, "~> 1.1"}]
+    [{:eidetic, github: "rawkode/eidetic-elixir", tag: "master"},
+      {:mongodb, ">= 0.2.0"},
+      {:poolboy, ">= 1.5.1"},
+      {:uuid, "~> 1.1"},
+      {:ex_doc, ">= 0.0.0", only: :dev},
+      {:credo, "~> 0.7", only: [:dev, :test]}
+    ]
   end
 
   def aliases do
-    [ "init": ["local.hex --force", "deps.get"],
+    ["init": ["local.hex --force", "deps.get"],
       "test": ["init", "test"]
     ]
   end
@@ -44,7 +50,7 @@ defmodule Eidetic.EventStore.MongoDB.Mixfile do
   end
 
   defp package do
-    [ name: :eidetic_eventstore_mongodb,
+    [name: :eidetic_eventstore_mongodb,
       files: ["lib", "mix.exs", "README.md", "LICENSE"],
       maintainers: ["David McKay"],
       licenses: ["MIT"],
