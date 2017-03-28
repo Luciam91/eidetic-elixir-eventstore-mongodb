@@ -1,5 +1,9 @@
 version: "2.1"
 
+volumes:
+  hex: ~
+  mix: ~
+
 services:
   app:
     image: elixir:latest
@@ -8,6 +12,8 @@ services:
     working_dir: /code
     volumes:
       - .:/code
+      - mix:/root/.mix
+      - hex:/root/.hex
 
   mongo:
     image: mongo:latest
