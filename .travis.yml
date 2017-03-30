@@ -19,4 +19,5 @@ script:
   - docker-compose run --rm --entrypoint=mix app local.rebar --force
   - docker-compose run --rm --entrypoint=mix app deps.get
   - docker-compose up -d mongo
+  - sleep 5
   - docker-compose run --rm app
