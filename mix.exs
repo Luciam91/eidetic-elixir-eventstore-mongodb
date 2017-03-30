@@ -24,7 +24,7 @@ defmodule Eidetic.EventStore.MongoDB.Mixfile do
   end
 
   def deps do
-    [{:eidetic, github: "rawkode/eidetic-elixir", tag: "master"},
+    [{:eidetic, ">= 0.0.2"},
       {:mongodb, ">= 0.2.0"},
       {:poolboy, ">= 1.5.1"},
       {:uuid, "~> 1.1"},
