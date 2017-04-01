@@ -4,7 +4,7 @@ services:
   - docker
 
 env:
-  DOCKER_COMPOSE_VERSION: 1.11.2
+  - DOCKER_COMPOSE_VERSION: 1.11.2
 
 before_install:
   - sudo apt-get update
@@ -15,9 +15,9 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 script:
-  - docker-compose run --rm --entrypoint=mix app local.hex --force
-  - docker-compose run --rm --entrypoint=mix app local.rebar --force
-  - docker-compose run --rm --entrypoint=mix app deps.get
-  - docker-compose up -d mongo
+  - docker-compose up -d mongodb
   - sleep 5
-  - docker-compose run --rm app
+  - docker-compose run --rm elixir local.hex --force
+  - docker-compose run --rm elixir local.rebar --force
+  - docker-compose run --rm elixir deps.get
+  - docker-compose run --rm elixir

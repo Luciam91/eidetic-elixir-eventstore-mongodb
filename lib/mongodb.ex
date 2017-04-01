@@ -1,24 +1,30 @@
 defmodule Eidetic.EventStore.MongoDB do
   @moduledoc """
-  Documentation for MongoDB.
+  MongoDB Adapter for Eidetic
   """
+  use GenServer
 
-  @doc """
-  Inserts an event into the event-store
-  """
-  def record(event = %Eidetic.Event{}) do
-    event
-    |> transform_in
-    |> insert
+  @doc false
+  def start_link(options \\ []) do
+    GenServer.start_link(__MODULE__, %{}, options)
   end
 
-  @doc """
-  Fetch event stream from the event-store
-  """
-  def fetch(identifier) do
-    identifier
+  @doc false
+  def handle_call({:record, event = %Eidetic.Event{}}, _from, _state) do
+    {:ok, %Mongo.InsertOneResult{inserted_id: object_identifier}} = event
+    |> transform_in
+    |> insert
+
+    {:reply, {:ok, [object_identifier: object_identifier]}, %{}}
+  end
+
+  @doc false
+  def handle_call({:fetch, identifier}, _from, _state) do
+    events = identifier
     |> select
     |> transform_out
+
+    {:reply, {:ok, [events: events]}, %{}}
   end
 
   @doc false

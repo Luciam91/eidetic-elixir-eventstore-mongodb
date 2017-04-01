@@ -5,7 +5,7 @@ volumes:
   mix: ~
 
 services:
-  app:
+  elixir:
     image: elixir:latest
     entrypoint: mix
     command: test
@@ -15,5 +15,5 @@ services:
       - mix:/root/.mix
       - hex:/root/.hex
 
-  mongo:
+  mongodb:
     image: mongo:latest

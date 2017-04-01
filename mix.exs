@@ -3,7 +3,7 @@ defmodule Eidetic.EventStore.MongoDB.Mixfile do
 
   def project do
     [app: :eidetic_eventstore_mongodb,
-      version: "0.0.3",
+      version: "0.0.5",
       elixir: "~> 1.3",
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
