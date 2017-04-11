@@ -51,8 +51,11 @@ defmodule Eidetic.EventStore.MongoDB do
   end
 
   @doc false
+  # TODO: Move this to Eidetic, and not the adapter
   defp transform_to_eidetic_event(event) when is_map(event) do
     {:ok, datetime, seconds} = DateTime.from_iso8601(event["datetime"])
+
+    event = Map.update!(event, "payload", fn(payload) -> Map.new(payload, fn {k, v} -> {String.to_atom(k), v} end) end)
 
     %Eidetic.Event{}
     |> Map.merge(Map.new(event, fn {k, v} -> {String.to_atom(k), v} end))

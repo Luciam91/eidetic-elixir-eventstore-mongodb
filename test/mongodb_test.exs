@@ -12,19 +12,30 @@ defmodule Test.Eidetic.EventStore.MongoDB do
           type: "EventHappened",
           version: 1,
           identifier: aggregate_one_identifier,
-          serial_number: 1},
+          serial_number: 1,
+          payload: %{
+            stuff: "Hello"
+          }
+        },
         %Eidetic.Event{
           type: "AnotherEventHappened",
           version: 1,
           identifier: aggregate_one_identifier,
-          serial_number: 2}
+          serial_number: 2,
+          payload: %{
+            another: "Hello"
+          }
+        }
         ],
      aggregate_two_events: [
         %Eidetic.Event{
           type: "SomethingHappened",
           version: 1,
           identifier: aggregate_two_identifier,
-          serial_number: 1
+          serial_number: 1,
+          payload: %{
+            third: "Hello"
+          }
         }
       ]
     ]
@@ -37,7 +48,7 @@ defmodule Test.Eidetic.EventStore.MongoDB do
   end
 
   test "It can fetch an event stream from the event store", context do
-    {:ok, [events: events]} = GenServer.call(:eidetic_eventstore_adapter, {:fetch, context[:aggregate_one_identifier]})
+    {:ok, events} = GenServer.call(:eidetic_eventstore_adapter, {:fetch, context[:aggregate_one_identifier]})
 
     # Test Aggregate One is intact and ordered correctly
     assert context[:aggregate_one_events] == events
