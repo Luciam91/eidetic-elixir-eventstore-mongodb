@@ -3,7 +3,7 @@ defmodule Eidetic.EventStore.MongoDB.Mixfile do
 
   def project do
     [app: :eidetic_eventstore_mongodb,
-      version: "0.0.5",
+      version: "0.0.6",
       elixir: "~> 1.3",
       build_embedded: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
@@ -41,7 +41,7 @@ defmodule Eidetic.EventStore.MongoDB.Mixfile do
 
   defp elixirc_paths(:test),  do: ["lib","examples"]
   defp elixirc_paths(:dev),   do: elixirc_paths(:test)
-  defp elixirc_paths(_),      do: []
+  defp elixirc_paths(_),      do: ["lib"]
 
   defp description do
     """
