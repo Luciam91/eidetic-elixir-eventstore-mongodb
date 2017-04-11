@@ -24,7 +24,7 @@ defmodule Eidetic.EventStore.MongoDB do
     |> select
     |> transform_out
 
-    {:reply, {:ok, [events: events]}, %{}}
+    {:reply, {:ok, events}, %{}}
   end
 
   @doc false
