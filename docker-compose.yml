@@ -15,5 +15,5 @@ services:
       - mix:/root/.mix
       - hex:/root/.hex
 
-  mongodb:
+  mongo:
     image: mongo:latest

@@ -18,8 +18,7 @@ defmodule Eidetic.EventStore.MongoDB.Mixfile do
   def application do
     [extra_applications: [
       :logger
-      ],
-      mod: {Eidetic.EventStore.MongoDB.Application, []}
+      ]
     ]
   end
 
