@@ -28,6 +28,15 @@ defmodule Eidetic.EventStore.MongoDB do
   end
 
   @doc false
+  def handle_call({:fetch_until, identifier, version}, _from, _state) do
+    events = identifier
+    |> select(version)
+    |> transform_out()
+
+    {:reply, {:ok, events}, %{}}
+  end
+
+  @doc false
   defp insert(document) do
     Mongo.insert_one(:mongo, "events", document, pool: DBConnection.Poolboy)
   end
@@ -35,6 +44,12 @@ defmodule Eidetic.EventStore.MongoDB do
   @doc false
   defp select(identifier) do
     Mongo.find(:mongo, "events", %{"$query": %{identifier: identifier}}, pool: DBConnection.Poolboy)
+    |> Enum.to_list()
+  end
+
+  @doc false
+  defp select(identifier, version) do
+    Mongo.find(:mongo, "events", %{"$query": %{identifier: identifier}}, limit: version, pool: DBConnection.Poolboy)
     |> Enum.to_list()
   end
 
