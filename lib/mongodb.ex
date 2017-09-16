@@ -49,7 +49,7 @@ defmodule Eidetic.EventStore.MongoDB do
 
   @doc false
   defp select(identifier, version) do
-    Mongo.find(:mongo, "events", %{"$query": %{identifier: identifier}}, limit: version, pool: DBConnection.Poolboy)
+    Mongo.find(:mongo, "events", %{"$query": %{identifier: identifier, serial_number: %{"$lte": version}}}, pool: DBConnection.Poolboy)
     |> Enum.to_list()
   end
 
